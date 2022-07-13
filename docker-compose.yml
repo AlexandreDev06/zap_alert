@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres:14.4
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=zap_alert
+      - POSTGRES_PASSWORD=ZapAlert2022!
+
+  app:
+    build: .
+    command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/zap_alert
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    tty: true
