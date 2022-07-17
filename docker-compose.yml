@@ -1,4 +1,13 @@
 version: '3'
+
+volumes:
+  redis:
+
+networks:
+  zap_alert_network:
+    name: zap_alert_network
+    driver: bridge
+  
 services:
   db:
     image: postgres:14.4
@@ -9,9 +18,7 @@ services:
       - POSTGRES_PASSWORD=ZapAlert2022!
 
   app:
-    build:
-      context: ./docker
-      dockerfile: Dockerfile
+    build: .
     command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/zap_alert
@@ -19,6 +26,7 @@ services:
       - .env
     depends_on:
       - db
+      - redis
     ports:
       - 3000:3000
     tty: true
@@ -35,3 +43,22 @@ services:
     ports:
       - 21465:21465
     tty: true
+
+  redis:
+    image: 'redis:5-alpine'
+    command: redis-server
+    ports:
+      - '6380:6379'
+    volumes:
+      - 'redis:/data'
+
+  sidekiq:
+    depends_on:
+      - 'db'
+      - 'redis'
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - .:/zap_alert
+    env_file:
+      - .env
