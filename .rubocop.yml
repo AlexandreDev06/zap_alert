@@ -1,0 +1,53 @@
+inherit_from: .rubocop_todo.yml
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'bin/bundle'
+    - 'node_modules/**/*'
+    - 'Guardfile'
+    - 'db/schema.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/routes.rb'
+    - 'config/routes/*'
+    - 'config/environments/*'
+    - 'lib/tasks/*'
+    - 'db/seeds/*'
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - 'db/migrate/*'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'db/migrate/*'
+    - 'app/datatables/*'
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - 'db/seeds.rb'
+    - 'db/seeds/*'
+
+Naming/AccessorMethodName:
+  Exclude:
+    - 'app/datatables/*'
+
+Layout/LineLength:
+  Exclude:
+    - 'db/seeds/*'
