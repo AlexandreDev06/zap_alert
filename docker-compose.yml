@@ -10,12 +10,14 @@ networks:
   
 services:
   db:
-    image: postgres:14.4
+    image: postgres:14-alpine
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=zap_alert
       - POSTGRES_PASSWORD=ZapAlert2022!
+    networks:
+      - zap_alert_network
 
   app:
     build: .
@@ -30,6 +32,8 @@ services:
     ports:
       - 3000:3000
     tty: true
+    networks:
+      - zap_alert_network
 
   wppconnect-server:
     build:
@@ -43,6 +47,8 @@ services:
     ports:
       - 21465:21465
     tty: true
+    networks:
+      - zap_alert_network
 
   redis:
     image: 'redis:5-alpine'
@@ -51,6 +57,8 @@ services:
       - '6380:6379'
     volumes:
       - 'redis:/data'
+    networks:
+      - zap_alert_network
 
   sidekiq:
     depends_on:
@@ -62,3 +70,5 @@ services:
       - .:/zap_alert
     env_file:
       - .env
+    networks:
+      - zap_alert_network
