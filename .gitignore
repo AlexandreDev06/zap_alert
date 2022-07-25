@@ -32,3 +32,6 @@
 
 # ignore envs
 .env
+
+# ignore node_modules
+node_modules/

@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ZapAlert</title>
+    <title>ZapAlert - <%= params['controller'].capitalize.delete_suffix 's' %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', '//fonts.googleapis.com/css2?family=Material+Icons&family=Material+Icons+Outlined&family=Noto+Sans+HK:wght@100;300;400;500;700&display=swap', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <% if  params['controller'].include? 'users' %>
+      <div class="container">
+        <%= yield %>
+      </div>
+    <% else %>
+      <%= render 'layouts/topbar' %>
+      <div class="container">
+        <%= yield %>
+      </div>
+    <% end %>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

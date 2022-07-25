@@ -1,0 +1,18 @@
+<nav class="navbar row shadow-sm mb-4">
+  <div class="container-fluid">
+    <h2 class="ms-5 text-purple col-2">Zap Alert</h2>
+    <div class="col-7">
+      <label class="mx-5">Home</label>
+      <label class="mx-5">Configurações</label>
+      <label class="mx-5">Logs</label>
+      <label class="mx-5">Cadastrar novos alertas</label>
+      <label class="mx-5">testes</label>
+    </div>
+    <div class="col">
+      <label class="fw-light fst-italic me-4"><%= current_user.email %></label>
+      <%= link_to '/users/sign_out', data: {turbo_method: :delete}, class: "text-dark " do %>
+        <span class="material-icons-outlined">logout</span>
+      <% end %>
+    </div>
+  </div>
+</nav>
