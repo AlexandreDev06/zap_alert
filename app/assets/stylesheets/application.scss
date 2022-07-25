@@ -13,3 +13,20 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bootstrap";
+@import "material_icons";
+
+
+// ICONS CONFIG
+.material-icons-outlined {
+  vertical-align: middle;
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
+.text-purple {
+  color: #63469f;
+}
